@@ -1,4 +1,4 @@
-* sample.cir
+* exp1.cir
 ***********************************************************************
 * Set supply and library
 ***********************************************************************
@@ -34,15 +34,16 @@ m2      Out In Vdd Vdd  cmosp l=0.25u w=6u
 ***********************************************************************
 * Format of pulse input:
 * pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
-Vin     In      0       PULSE(0 2.5 1ns 0.1ns 0.1ns 4ns 10ns)
+Vin     In      0       PULSE(0 2.5 1n 0.1n 0.1n 4n 10n)
 ***********************************************************************
 * Top level simulation netlist
 ***********************************************************************
 * ??? Add more of the netlist here
-x1      In      a       Vdd     inv
+x1      In      a       b     inv
 *負荷容量の設定方法を調べる　それだけできれば多分あとはつなげばいいだけなはず
 *参考? http://www.design.cms.kyutech.ac.jp/~nakamura/ns-tools/Spice_Easy_Manual.pdf
-r1      a
+c1       a       0       240f
+v1       b       0       2.5
 *x2      a       b       Vdd     inva
 *r1      b       c       1k
 *c1      c       0       100f
@@ -56,4 +57,3 @@ r1      a
 * End of Deck
 ***********************************************************************
 .end
-
