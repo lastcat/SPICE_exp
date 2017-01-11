@@ -14,62 +14,64 @@ Vdd     Vdd     0       2.5
 ***********************************************************************
 * Define Subcircuits
 ***********************************************************************
-.subckt inv In Out Vdd
+.subckt front_inv In Out Vdd
 m1      Out In 0 0      cmosn l=0.25u w=2u
 m2      Out In Vdd Vdd  cmosp l=0.25u w=4u
 .ends
-.subckt inva In Out Vdd
-m1      Out In 0 0      cmosn l=0.25u w=4u
-m2      Out In Vdd Vdd  cmosp l=0.25u w=8u
+
+.subckt end_inv In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=40u
+m2      Out In Vdd Vdd      cmosp l=0.25u w=80u
 .ends
-.subckt invb In Out Vdd
-m1      Out In 0 0      cmosn l=0.25u w=16u
-m2      Out In Vdd Vdd  cmosp l=0.25u w=32u
+
+.subckt mid_inv_a In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=11.7u
+m2      Out In Vdd Vdd      cmosp l=0.25u w=23.39u
 .ends
-.subckt invc In Out Vdd
-m1      Out In 0 0      cmosn l=0.25u w=64u
-m2      Out In Vdd Vdd  cmosp l=0.25u w=128u
+
+.subckt mid_inv_b In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=7.82u
+m2      Out In Vdd Vdd      cmosp l=0.25u w=15.64u
 .ends
 
 *2入力NAND
 .subckt t_nand in_a in_b Out Vdd
-*m1   　　Drain Gate Source 基盤? cmons(n/p) l=0.25u w=3u
-m1        Vdd in_a Out Vdd cmosp l=0.25u w=6u
-m2        Out   in_a b 0   cmosn l=0.25u w=6u
-m3        b   in_b 0 0   cmosn l=0.25u w=6u
-m4        Vdd in_b Out Vdd cmosp l=0.25u w=6u
+m1        Vdd in_a Out Vdd cmosp l=0.25u w=26.92u
+m2        Out   in_a b 0   cmosn l=0.25u w=26.92u
+m3        b   in_b 0 0   cmosn l=0.25u w=26.92u
+m4        Vdd in_b Out Vdd cmosp l=0.25u w=26.92u
 .ends
 
 *2入力NOR
 .subckt t_nor in_a in_b Out Vdd
-m1    Vdd in_a a Vdd cmosp l=0.25u w=6u
-m2    a   in_b Out Vdd cmosp l=0.25u w=6u
-m3    Out   in_b 0 0   cmosn l=0.25u w=6u
-m4    Out   in_a 0 0   cmosn l=0.25u w=6u
+m1    Vdd in_a a Vdd cmosp l=0.25u w=91.32u
+m2    a   in_b Out Vdd cmosp l=0.25u w=91.32u
+m3    Out   in_b 0 0   cmosn l=0.25u w=22.83u
+m4    Out   in_a 0 0   cmosn l=0.25u w=22.83u
 .ends
 
 *4入力NAND
 .subckt f_nand in_a in_b in_c in_d Out Vdd
-m1    Vdd in_a Out Vdd cmosp l=0.25u w=6u
-m2    Out in_a a   0   cmosn l=0.25u w=6u
-m3    a   in_b b   0   cmosn l=0.25u w=6u
-m4    b   in_c c   0   cmosn l=0.25u w=6u
-m5    c   in_d 0   0   cmosn l=0.25u w=6u
-m6    Vdd in_b Out Vdd cmosp l=0.25u w=6u
-m7    vdd in_c Out Vdd cmosp l=0.25u w=6u
-m8    Vdd in_d Out Vdd cmosp l=0.25u w=6u
+m1    Vdd in_a Out Vdd cmosp l=0.25u w=6.84u
+m2    Out in_a a   0   cmosn l=0.25u w=13.68u
+m3    a   in_b b   0   cmosn l=0.25u w=13.68u
+m4    b   in_c c   0   cmosn l=0.25u w=13.68u
+m5    c   in_d 0   0   cmosn l=0.25u w=13.68u
+m6    Vdd in_b Out Vdd cmosp l=0.25u w=6.84u
+m7    vdd in_c Out Vdd cmosp l=0.25u w=6.84u
+m8    Vdd in_d Out Vdd cmosp l=0.25u w=6.84u
 .ends
 
 *4入力NOR
 .subckt f_nor in_a in_b in_c in_d Out Vdd
-m1    0 in_a Out 0 cmosn l=0.25u w=6u
-m2    Out in_a a   Vdd   cmosp l=0.25u w=6u
-m3    a   in_b b   Vdd   cmosp l=0.25u w=6u
-m4    b   in_c c   Vdd   cmosp l=0.25u w=6u
-m5    c   in_d Vdd   Vdd   cmosp l=0.25u w=6u
-m6    0 in_b Out 0 cmosn l=0.25u w=6u
-m7    0 in_c Out 0 cmosn l=0.25u w=6u
-m8    0 in_d Out 0 cmosn l=0.25u w=6u
+m1    0 in_a Out 0 cmosn l=0.25u w=10.81u
+m2    Out in_a a   Vdd   cmosp l=0.25u w=81.44u
+m3    a   in_b b   Vdd   cmosp l=0.25u w=81.44u
+m4    b   in_c c   Vdd   cmosp l=0.25u w=81.44u
+m5    c   in_d Vdd   Vdd   cmosp l=0.25u w=81.44u
+m6    0 in_b Out 0 cmosn l=0.25u w=10.81u
+m7    0 in_c Out 0 cmosn l=0.25u w=10.81u
+m8    0 in_d Out 0 cmosn l=0.25u w=10.81u
 .ends
 
 *これで試して今日のこれは終わり まあ少しずつ勉強していってもいいかな
@@ -78,23 +80,56 @@ m8    0 in_d Out 0 cmosn l=0.25u w=6u
 ***********************************************************************
 * Format of pulse input:
 * pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
-Vin     in_one      0       PULSE(0 2.5 1ns 0.1ns 0.1ns 4ns 10ns)
-*Vin     in_one      0      2.5
-V1      in_two      0       2.5
-V2      in_three    0       2.5
-V3      in_four     0       0
+*Vin     in_one      0       PULSE(0 2.5 1ns 0.1ns 0.1ns 4ns 10ns)
+*Vin     in_one      0      PULSE(0 2.5 1.5ns 0.1ns 0.1ns 4ns 10ns)
+*V1      in_two      0       PULSE(0 2.5 2ns 0.1ns 0.1ns 4ns 10ns)
+*V2      in_three    0       PULSE(0 2.5 2.5ns 0.1ns 0.1ns 4ns 10ns)
+*V3      in_four     0       PULSE(0 2.5 3ns 0.1ns 0.1ns 4ns 10ns)
+
+Va       xa      0       PWL(0n 0 2n 0 2.1n 2.5 3n 2.5 3.1n 0)
+Vb       xb      0       PWL(0n 0 4n 0 4.1n 2.5 5n 2.5 5.1n 0)
+Vc       xc      0       PWL(0n 0 6n 0 6.1n 2.5 7n 2.5 7.1n 0)
+Vd       xd      0       PWL(0n 0 8n 0 8.1n 2.5 9n 2.5 9.1n 0)
 ***********************************************************************
 * Top level simulation netlist
 ***********************************************************************
 * ??? Add more of the netlist here
+**(a)**
+*x1       xa a Vdd front_inv
+*x2       xb b Vdd front_inv
+*x3       xc c Vdd front_inv
+*x4       xd d Vdd front_inv
+*x5      a b b d e Vdd f_nand
+*x6      e f Vdd mid_inv_a
+***
 
-x1      in_one in_two in_three in_four  Out Vdd f_nand
-*x2      a       b       Vdd     inva
-*r1      b       c       1k
-*c1      c       0       100f
-*r2      c       Out     1k
-*x4      Out     d       Vdd     invb
-*x5      d       e       Vdd     invc
+**(b)**
+*x1 xa a Vdd front_inv
+*x2 xb b Vdd front_inv
+*x3 xc c Vdd front_inv
+*x4 xd d Vdd front_inv
+
+*x5 a aa Vdd mid_inv_b
+*x6 b bb Vdd mid_inv_b
+*x7 c cc Vdd mid_inv_b
+*x8 d dd Vdd mid_inv_b
+
+*x9 aa bb cc dd f Vdd f_nor
+***
+
+**(c)**
+x1 xa a Vdd front_inv
+x2 xb b Vdd front_inv
+x3 xc c Vdd front_inv
+x4 xd d Vdd front_inv
+
+x5 a b e Vdd t_nand
+x6 c d f Vdd t_nand
+
+x7 e f g Vdd t_nor
+
+x8 g Out Vdd end_inv
+
 .tran .001ns 12ns
 .plot TRAN V(In) V(a) V(b) V(c) V(Out) V(d) V(e)
 ***********************************************************************
