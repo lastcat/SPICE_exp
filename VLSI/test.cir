@@ -95,12 +95,12 @@ Vd       xd      0       PWL(0n 0 8n 0 8.1n 2.5 9n 2.5 9.1n 0)
 ***********************************************************************
 * ??? Add more of the netlist here
 **(a)**
-*x1       xa a Vdd front_inv
-*x2       xb b Vdd front_inv
-*x3       xc c Vdd front_inv
-*x4       xd d Vdd front_inv
-*x5      a b b d e Vdd f_nand
-*x6      e f Vdd mid_inv_a
+x1       xa a Vdd front_inv
+x2       xb b Vdd front_inv
+x3       xc c Vdd front_inv
+x4       xd d Vdd front_inv
+x5      a b c d e Vdd f_nand
+x6      e f Vdd mid_inv_a
 ***
 
 **(b)**
@@ -118,17 +118,17 @@ Vd       xd      0       PWL(0n 0 8n 0 8.1n 2.5 9n 2.5 9.1n 0)
 ***
 
 **(c)**
-x1 xa a Vdd front_inv
-x2 xb b Vdd front_inv
-x3 xc c Vdd front_inv
-x4 xd d Vdd front_inv
+*x1 xa a Vdd front_inv
+*x2 xb b Vdd front_inv
+*x3 xc c Vdd front_inv
+*x4 xd d Vdd front_inv
 
-x5 a b e Vdd t_nand
-x6 c d f Vdd t_nand
+*x5 a b e Vdd t_nand
+*x6 c d f Vdd t_nand
 
-x7 e f g Vdd t_nor
+*x7 e f g Vdd t_nor
 
-x8 g Out Vdd end_inv
+x8 f Out Vdd end_inv
 
 .tran .001ns 12ns
 .plot TRAN V(In) V(a) V(b) V(c) V(Out) V(d) V(e)
