@@ -61,7 +61,7 @@ m8    Vdd in_d Out Vdd cmosp l=0.25u w=6u
 .ends
 
 *4入力NOR
-.subckt f_nand in_a in_b in_c in_d Out Vdd
+.subckt f_nor in_a in_b in_c in_d Out Vdd
 m1    0 in_a Out 0 cmosn l=0.25u w=6u
 m2    Out in_a a   Vdd   cmosp l=0.25u w=6u
 m3    a   in_b b   Vdd   cmosp l=0.25u w=6u
@@ -79,14 +79,16 @@ m8    0 in_d Out 0 cmosn l=0.25u w=6u
 * Format of pulse input:
 * pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
 Vin     in_one      0       PULSE(0 2.5 1ns 0.1ns 0.1ns 4ns 10ns)
-*Vin     in_one      0       1
-V1      in_two      0       0
+*Vin     in_one      0      2.5
+V1      in_two      0       2.5
+V2      in_three    0       2.5
+V3      in_four     0       0
 ***********************************************************************
 * Top level simulation netlist
 ***********************************************************************
 * ??? Add more of the netlist here
 
-x1      in_one    in_two    Out     Vdd t_nor
+x1      in_one in_two in_three in_four  Out Vdd f_nand
 *x2      a       b       Vdd     inva
 *r1      b       c       1k
 *c1      c       0       100f
