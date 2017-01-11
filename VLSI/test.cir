@@ -1,5 +1,4 @@
-* sample.cir
-* ゲートテスト用の回路
+* exp2.cir
 ***********************************************************************
 * Set supply and library
 ***********************************************************************
@@ -69,22 +68,15 @@ m2    Out in_a a   Vdd   cmosp l=0.25u w=81.44u
 m3    a   in_b b   Vdd   cmosp l=0.25u w=81.44u
 m4    b   in_c c   Vdd   cmosp l=0.25u w=81.44u
 m5    c   in_d Vdd   Vdd   cmosp l=0.25u w=81.44u
-m6    0 in_b Out 0 cmosn l=0.25u w=10.81u
-m7    0 in_c Out 0 cmosn l=0.25u w=10.81u
-m8    0 in_d Out 0 cmosn l=0.25u w=10.81u
+m6    0 in_b Out 0 cmosn l=0.25u w=10.18u
+m7    0 in_c Out 0 cmosn l=0.25u w=10.18u
+m8    0 in_d Out 0 cmosn l=0.25u w=10.18u
 .ends
 
-*これで試して今日のこれは終わり まあ少しずつ勉強していってもいいかな
 ***********************************************************************
 * Stimulus
 ***********************************************************************
 * Format of pulse input:
-* pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
-*Vin     in_one      0       PULSE(0 2.5 1ns 0.1ns 0.1ns 4ns 10ns)
-*Vin     in_one      0      PULSE(0 2.5 1.5ns 0.1ns 0.1ns 4ns 10ns)
-*V1      in_two      0       PULSE(0 2.5 2ns 0.1ns 0.1ns 4ns 10ns)
-*V2      in_three    0       PULSE(0 2.5 2.5ns 0.1ns 0.1ns 4ns 10ns)
-*V3      in_four     0       PULSE(0 2.5 3ns 0.1ns 0.1ns 4ns 10ns)
 
 Va       xa      0       PWL(0n 0 2n 0 2.1n 2.5 3n 2.5 3.1n 0)
 Vb       xb      0       PWL(0n 0 4n 0 4.1n 2.5 5n 2.5 5.1n 0)
