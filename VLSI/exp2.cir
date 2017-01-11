@@ -1,0 +1,71 @@
+* exp1.cir
+***********************************************************************
+* Set supply and library
+***********************************************************************
+.INCLUDE mos_model3
+.options temp=27                * Nominal temperature
+* Save results of simulation for viewing
+.options post
+***********************************************************************
+* Define power supply
+***********************************************************************
+Vdd     Vdd     0       2.5
+***********************************************************************
+* Define Subcircuits
+***********************************************************************
+.subckt inv In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=3u
+m2      Out In Vdd Vdd  cmosp l=0.25u w=6u
+
+*あと4入力NANDと4入力NOR、2入力NANDと入力NORが必要 03の23pあたりにある
+*Pは○、Nはなし
+*基盤はnmosは0、pmosではVddにとりあえず入れておけば良いらしい
+*これで出来てるのかなあ　一回試してみる必要があるっぽい
+.subckt t_nand in_a in_b Out Vdd
+*m1   　　Drain Gate Source 基盤? cmons(n/p) l=0.25u w=3u
+m1        Vdd in_a a Vdd cmosp l=0.25u w=6u
+m2        a   in_a b 0   cmosn l=0.25u w=6u
+m3        b   in_b 0 0   cmosn l=0.25u w=6u
+m4        Vdd in_b a Vdd cmosp l=0.25u w=6u
+
+.ends
+*.subckt inva In Out Vdd
+*m1      Out In 0 0      cmosn l=0.25u w=4u
+*m2      Out In Vdd Vdd  cmosp l=0.25u w=8u
+*.ends
+*.subckt invb In Out Vdd
+*m1      Out In 0 0      cmosn l=0.25u w=16u
+*m2      Out In Vdd Vdd  cmosp l=0.25u w=32u
+*.ends
+*.subckt invc In Out Vdd
+*m1      Out In 0 0      cmosn l=0.25u w=64u
+*m2      Out In Vdd Vdd  cmosp l=0.25u w=128u
+*.ends
+***********************************************************************
+* Stimulus
+***********************************************************************
+* Format of pulse input:
+* pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
+Vin     In      0       PULSE(0 2.5 1n 0.1n 0.1n 4n 10n)
+***********************************************************************
+* Top level simulation netlist
+***********************************************************************
+* ??? Add more of the netlist here
+x1      In      a       b     inv
+*負荷容量の設定方法を調べる　それだけできれば多分あとはつなげばいいだけなはず
+*参考? http://www.design.cms.kyutech.ac.jp/~nakamura/ns-tools/Spice_Easy_Manual.pdf
+c1       a       0       240f
+v1       b       0       2.5
+*x2      a       b       Vdd     inva
+*r1      b       c       1k
+*c1      c       0       100f
+*r2      c       Out     1k
+*x4      Out     d       Vdd     invb
+*x5      d       e       Vdd     invc
+
+.tran .001ns 12ns
+.plot TRAN V(In) V(a) V(b) V(c) V(Out) V(d) V(e)
+***********************************************************************
+* End of Deck
+***********************************************************************
+.end
