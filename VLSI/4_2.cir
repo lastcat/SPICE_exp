@@ -1,0 +1,58 @@
+* exp1.cir
+***********************************************************************
+* Set supply and library
+***********************************************************************
+.INCLUDE mos_model3
+.options temp=27                * Nominal temperature
+* Save results of simulation for viewing
+.options post
+***********************************************************************
+* Define power supply
+***********************************************************************
+Vdd     Vdd     0       2.5
+***********************************************************************
+* Define Subcircuits
+***********************************************************************
+.subckt inv_a In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=3u
+m2      Out In Vdd Vdd  cmosp l=0.25u w=6u
+.ends
+.subckt inv_b In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=12u
+m2      Out In Vdd Vdd  cmosp l=0.25u w=24u
+*3-6 mean(-i(vdd)) = 1.129802e-03
+*10-20 mean(-i(vdd)) = 7.566115e-04
+*12-24 mean(-i(vdd)) = 7.457292e-04
+*15-30 mean(-i(vdd)) = 7.432607e-04
+*20-40 mean(-i(vdd)) = 7.596667e-04
+*30-60 mean(-i(vdd)) = 8.350066e-04
+*50-100 mean(-i(vdd)) = 1.101262e-03
+*75-150 mean(-i(vdd)) = 1.595012e-03
+*本当にこの値でいいのかは置いておいて、なんとなくの最小はわかった気がする？
+*(この値の大小がそのまま電力消費の差なのであれば) => 合計最小化なのでこれはこれであってると思う
+.ends
+.subckt inv_c In Out Vdd
+m1      Out In 0 0      cmosn l=0.25u w=75u
+m2      Out In Vdd Vdd  cmosp l=0.25u w=150u
+.ends
+
+***********************************************************************
+* Stimulus
+***********************************************************************
+* Format of pulse input:
+* pulse v_initial v_final t_delay t_rise t_fall t_pulsewidth t_period
+Vin     In      0       PWL(0n 2.5 1.0n 2.5 1.1n 0 6.0n 0 6.1n 2.5 10.0n 2.5)
+***********************************************************************
+* Top level simulation netlist
+***********************************************************************
+* ??? Add more of the netlist here
+x1 in a Vdd inv_a
+x2  a b Vdd inv_b
+x3  b Out Vdd inv_c
+c1  Out 0 2pf
+.tran .001ns 12ns
+.plot TRAN V(In) V(a) V(b) V(c) V(Out) V(d) V(e)
+***********************************************************************
+* End of Deck
+***********************************************************************
+.end
